@@ -35,7 +35,7 @@ export default function ExecutiveLayout() {
   const [loadingUser, setLoadingUser] = useState(false);
   const [error, setError] = useState(null);
 
-  const API_BASE = "http://localhost:5000";
+  const API_BASE = "https://tms-project-w5jz.onrender.com";
   const API_USER_URL = `${API_BASE}/api/executive/info`;
 
   // ✅ Fetch current user info

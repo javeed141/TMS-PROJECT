@@ -174,7 +174,7 @@
 
 //   const [events, setEvents] = useState([]);
 //   const [loadingEvents, setLoadingEvents] = useState(true);
-//   const API_BASE = "http://localhost:5000";
+//   const API_BASE = "https://tms-project-w5jz.onrender.com";
 
 //   function mapTaskToEvent(task) {
 //     const start = task.startTime ? new Date(task.startTime) : null;
@@ -786,7 +786,7 @@ export default function SchedulePage() {
 
   const [events, setEvents] = useState([]);
   const [loadingEvents, setLoadingEvents] = useState(true);
-  const API_BASE = "http://localhost:5000";
+  const API_BASE = "https://tms-project-w5jz.onrender.com";
 
   // compute today's start for date comparisons
   const todayStart = useMemo(() => startOfDay(new Date()), []);
