@@ -61,7 +61,7 @@ export default function SignIn() {
   setBackendError("");
 
   try {
-    const response = await fetch("https://tms-project-w5jz.onrender.com/api/auth/login", {
+    const response = await fetch("https://time-management-software.onrender.com/api/auth/login", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
@@ -100,7 +100,7 @@ const handleGoogleSignIn = async () => {
     const email = result.user.email;
 
     // Check user in MongoDB
-    const response = await fetch("https://tms-project-w5jz.onrender.com/api/auth/google-login", {
+    const response = await fetch("https://time-management-software.onrender.com/api/auth/google-login", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email }),
