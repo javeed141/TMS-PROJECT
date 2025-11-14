@@ -27,7 +27,7 @@ import { ThemeContext } from "../../context/ThemeContext";
 /**
  * API base
  */
-const API_BASE = "https://time-management-software.onrender.com/";
+const API_BASE = "https://time-management-software.onrender.com";
 
 /**
  * ExecutiveReportPage

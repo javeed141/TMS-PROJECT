@@ -6,7 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Table, TableHeader, TableBody, TableCell, TableRow } from "@/components/ui/table";
 
-const API_BASE = "https://time-management-software.onrender.com/";
+const API_BASE = "https://time-management-software.onrender.com";
 
 export default function ScheduleMeeting() {
   const { isDark } = useContext(ThemeContext);

@@ -786,7 +786,7 @@ export default function SchedulePage() {
 
   const [events, setEvents] = useState([]);
   const [loadingEvents, setLoadingEvents] = useState(true);
-  const API_BASE = "https://time-management-software.onrender.com/";
+  const API_BASE = "https://time-management-software.onrender.com";
 
   // compute today's start for date comparisons
   const todayStart = useMemo(() => startOfDay(new Date()), []);
