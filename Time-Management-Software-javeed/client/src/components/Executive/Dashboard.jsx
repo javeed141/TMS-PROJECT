@@ -90,9 +90,9 @@ export default function Dashboard() {
     const dateQuery = date;
 
     Promise.all([
-      safeFetchJson(`https://tms-project-w5jz.onrender.com/api/meetings/my-day?date=${encodeURIComponent(dateQuery)}`),
-      safeFetchJson("https://tms-project-w5jz.onrender.com/api/executive/info"),
-      safeFetchJson("https://tms-project-w5jz.onrender.com/api/executive/me/tasks"),
+      safeFetchJson(`https://time-management-software.onrender.com/api/meetings/my-day?date=${encodeURIComponent(dateQuery)}`),
+      safeFetchJson("https://time-management-software.onrender.com/api/executive/info"),
+      safeFetchJson("https://time-management-software.onrender.com/api/executive/me/tasks"),
     ])
       .then(([meetRes, infoRes, tasksRes]) => {
         if (!mounted) return;

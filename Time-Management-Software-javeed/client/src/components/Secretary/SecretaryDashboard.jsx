@@ -6,7 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { Table, TableHeader, TableRow, TableCell, TableBody } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
 
-const API_BASE = "https://tms-project-w5jz.onrender.com";
+const API_BASE = "https://time-management-software.onrender.com/";
 
 export default function SecretaryDashboard({ user, loading }) {
   const { isDark } = useContext(ThemeContext);
