@@ -203,9 +203,7 @@ export default function SignUpForm() {
             <Button type="button" onClick={() => reset()} className={isDark ? "bg-gray-700 text-white hover:bg-gray-600" : ""}>
               Reset
             </Button>
-            <Button type="submit" onClick={handleSubmit(onSubmit)} disabled={isSubmit} className={isDark ? "bg-indigo-600 hover:bg-indigo-500 text-white" : ""}>
-              {isSubmit ? <Spinner /> : "Sign Up"}
-            </Button>
+           
           </CardFooter>
 
           <div className="mt-6 text-center">

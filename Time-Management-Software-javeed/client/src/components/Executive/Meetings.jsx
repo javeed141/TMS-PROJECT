@@ -1097,6 +1097,8 @@ export default function Meetings() {
     // cancel previous fetch if any
     if (fetchControllerRef.current) {
       try { fetchControllerRef.current.abort(); } catch (e) { /* ignore */ }
+
+      
     }
     const controller = new AbortController();
     fetchControllerRef.current = controller;
