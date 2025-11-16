@@ -1,144 +1,140 @@
 # Time Management Software (TMS)
 
-Comprehensive full-stack application for scheduling, notifications, and simple executive/secretary workflows.
+This repository contains a full-stack Time Management Software application used for scheduling, notifications, and basic executive/secretary workflows.
 
-## Repository contents
-| Path | Purpose |
-|------|---------|
-| `client/` | Vite + React frontend (JSX/TypeScript mix) |
-| `backend/` | Express API, controllers, Mongoose schemas |
+Contents
+- `client/` — Vite + React frontend (JSX/TypeScript mix)
+- `backend/` — Express API (routes, controllers, MongoDB schemas)
 
-## Quick summary
-- Backend runs on port `5000` in development. Frontend runs on the Vite dev port (default `5173`).
-- For production builds of the frontend, set `VITE_API_BASE` in your host (Vercel) before building — Vite inlines env vars at build time.
+This README explains how to run the app locally, prepare a production build, and deploy the services. It also documents environment variables, helpful scripts, API examples, and troubleshooting steps.
 
-## Key features
-| Feature | Description |
-|---|---|
-| Authentication | Firebase social sign-in + backend auth routes |
-| Scheduling | Create/edit events with basic conflict detection |
-| Role-based UI | Executive and Secretary dashboards and APIs |
-| Notifications | Server-side notifications and client display panel |
+Quick summary
+- Run the backend on port `5000` and the frontend (Vite) on the default Vite port during development.
+- In production, set `VITE_API_BASE` in your hosting provider (Vercel) before building the frontend; Vite inlines env vars at build time.
 
-## Tech stack
-| Layer | Technology |
-|---|---|
-| Frontend | React, Vite, JSX + TypeScript |
-| Backend | Node.js, Express |
-| Database | MongoDB (Mongoose) |
-| Auth | Firebase (client) + backend session/JWT flows |
+Features
+- User authentication (Firebase integration for social sign-in + backend auth routes)
+- Event scheduling and conflict detection
+- Executive and secretary role-based routes and UI
+- Notifications service (server-side notifications and client display)
 
-## Project structure (high level)
-```
-client/            # frontend app (Vite)
-backend/           # Express app, routes, controllers
-  controllers/
-  routes/
-  schema/          # Mongoose schemas
-javeed.py
-README.md
-```
+Tech stack
+- Frontend: React, Vite, JSX/TypeScript mix
+- Backend: Node.js, Express
+- Database: MongoDB (Mongoose schemas in `backend/schema/`)
+- Auth: Firebase (used for social auth in client) and backend session/JWT flows
 
-## Quick start
-1) Start the backend
+Development setup
+
+Prereqs
+- Node.js 18+ and npm
+- MongoDB (local or hosted cluster)
+
+Backend
+1. Install and run backend:
 ```powershell
 cd backend
 npm install
-# create a .env (see env examples below)
+# create a .env with required variables (see sample below)
 npm run start
 ```
+2. Verify: visit `http://localhost:5000/` (or check logs) to confirm the server is running.
 
-2) Start the frontend (dev)
+Frontend
+1. Install and run frontend (Vite):
 ```powershell
 cd client
 npm install
-# optional: set API base if you use absolute URLs in dev
+# optional: for absolute URLs in dev
 $env:VITE_API_BASE = "http://localhost:5000"
 npm run dev
 ```
+2. Visit the Vite dev URL (typically `http://localhost:5173`) and use the app.
 
-Dev notes: `client/vite.config.ts` includes a dev proxy so `/api/*` is forwarded to `http://localhost:5000`. Use relative `/api` requests in client code for convenience.
+Notes on dev proxy
+- The frontend config includes a Vite dev proxy (`client/vite.config.ts`) that proxies `/api/*` to `http://localhost:5000`. Using relative `/api` paths in client code avoids CORS during development.
 
-## Environment variables (recommended table)
-| File | Variable | Required | Example / Notes |
-|---|---:|---:|---|
-| `backend/.env` | `PORT` | no | `5000` (default)
-| `backend/.env` | `MONGO_URI` | yes | `mongodb+srv://user:pass@cluster/tms` |
-| `backend/.env` | `JWT_SECRET` | yes | secret for signing tokens |
-| `backend/.env` | `SMTP_HOST` / `SMTP_USER` / `SMTP_PASS` | no | for email notifications |
-| `client/.env` or Vercel envs | `VITE_API_BASE` | recommended | `https://your-backend.example.com` (must be set before building)
+Build & production
 
-### Sample `.env` (backend)
-```text
+Frontend (build)
+1. Ensure `VITE_API_BASE` is set to your backend base URL (e.g. `https://your-backend.onrender.com`). In Vercel, add this under Project → Settings → Environment Variables for Production.
+2. Build locally (or in CI):
+```powershell
+cd client
+$env:VITE_API_BASE = "https://your-backend.example.com"
+npm run build
+```
+3. Deploy `client/dist` to a static host (Vercel recommended for this repo).
+
+Backend (deploy)
+- Deploy `backend/` to Render, Heroku, or a VPS. Make sure `MONGO_URI`, `PORT`, and other secrets are set as environment variables in your host.
+
+Environment variable examples
+
+Backend `.env` (example)
+```
 PORT=5000
 MONGO_URI=mongodb+srv://<user>:<pass>@cluster.example.mongodb.net/tms
-JWT_SECRET=replace_with_secret
+JWT_SECRET=replace-with-secret
+SMTP_HOST=smtp.example.com
+SMTP_USER=...
+SMTP_PASS=...
 ```
 
-### Sample Vite env (frontend)
-```text
+Frontend env (Vite)
+```
 VITE_API_BASE=https://your-backend.example.com
 ```
 
-Important: Vite envs are inlined at build time. If `VITE_API_BASE` is not set at build time the compiled bundle may include `localhost` or other fallbacks.
+Common npm scripts (project-level)
+- Frontend (`client/package.json`)
+  - `npm run dev` — start Vite dev server
+  - `npm run build` — type-check and build for production (`tsc --noEmit && vite build`)
+  - `npm run preview` — preview the built app
+- Backend (`backend/package.json`)
+  - `npm start` — start the production server
+  - `npm run dev` — start server with nodemon (if available)
 
-## Scripts (at-a-glance)
-| Location | Script | Purpose |
-|---|---|---|
-| `client/package.json` | `dev` | start Vite dev server |
-| `client/package.json` | `build` | type-check & build production bundle (`tsc --noEmit && vite build`) |
-| `client/package.json` | `preview` | preview the built app |
-| `backend/package.json` | `start` | start backend server |
-| `backend/package.json` | `dev` | start backend with nodemon (if present) |
+API endpoints (examples)
+- Authentication: `POST /api/auth/login`, `POST /api/auth/register`, `GET /api/auth/me`
+- Events: `GET /api/events`, `POST /api/events`, `PUT /api/events/:id`, `DELETE /api/events/:id`
+- Executives: `GET /api/executives`, `POST /api/executives` (see `backend/routes/executives.js`)
+- Secretary: `GET /api/secretary/*` (see `backend/routes/secretary.js`)
 
-## API reference (common endpoints)
-| Method | Path | Auth | Description |
-|---:|---|---|---|
-| POST | `/api/auth/login` | no | Login endpoint (backend auth)
-| POST | `/api/auth/register` | no | Register user / create profile
-| GET | `/api/auth/me` | yes | Get current authenticated user
-| GET | `/api/events` | yes | List events
-| POST | `/api/events` | yes | Create event
-| PUT | `/api/events/:id` | yes | Update event
-| DELETE | `/api/events/:id` | yes | Delete event
+The exact request shapes are defined in the backend controllers and schemas under `backend/controllers/` and `backend/schema/`.
 
-### Example curl (login)
-```bash
-curl -X POST 'https://your-backend.example.com/api/auth/login' \
-  -H 'Content-Type: application/json' \
-  -d '{"email":"user@example.com","password":"secret"}'
-```
+Troubleshooting
 
-## Deployment checklist (Vercel frontend + Render backend)
-| Step | Notes |
-|---|---|
-| Prepare backend | Deploy `backend/` to Render/Heroku, set `MONGO_URI`, `JWT_SECRET`, SMTP creds, enable HTTPS |
-| Backend health | Confirm backend accepts requests from `https://your-backend.example.com` |
-| Vercel env | In Vercel Project Settings set `VITE_API_BASE=https://your-backend.example.com` for Production |
-| Vercel build | Trigger a new deployment (build runs after envs are set) |
-| Firebase | Add Vercel domain(s) to Firebase → Authentication → Authorized domains for social login |
-| Test app | Test login, event creation, notifications in production environment |
+- TS6202 / project references circular graph
+  - If CI fails with `TS6202`, avoid `tsc -b` on CI for this repo. Use `tsc --noEmit` for type checking only. This repo's `client` build uses `tsc --noEmit && vite build` to avoid composite reference cycles.
 
-## Common errors & quick fixes
-| Error | Cause | Fix |
-|---|---|---|
-| `TS6202` project references circular graph | `tsc -b` with project references causing cycle | Use `tsc --noEmit` instead of `tsc -b`. `client` uses `tsc --noEmit && vite build` |
-| Frontend still calls `localhost:5000` | `VITE_API_BASE` missing at build time | Add `VITE_API_BASE` in Vercel and redeploy (build inlines envs) |
-| `auth/unauthorized-domain` (Firebase) | Deployed domain not added to Firebase | Add domain(s) in Firebase Console → Authentication → Authorized domains |
-| `net::ERR_BLOCKED_BY_CLIENT` | Browser extension (adblock) blocked request | Test in incognito with extensions disabled; whitelist domain |
+- Deployed frontend still requests `localhost:5000`
+  - Vite inlines env values at build time. Make sure `VITE_API_BASE` is set in your deployment host (Vercel) before the build step. Rebuild/redeploy after setting it.
 
-## Developer notes & recommendations
-- Centralize API base usage: call `const API_BASE = import.meta.env.VITE_API_BASE || ''` in a small helper and use it in API calls. This avoids scattered hard-coded URLs.
-- Long-term: consider renaming JSX-containing `.js` files to `.jsx` or `.tsx` and removing the pre-transform plugin in `vite.config.ts` for clarity.
+- Firebase `auth/unauthorized-domain`
+  - Add your deployed domains (Vercel preview and production domains) to Firebase Console → Authentication → Settings → Authorized domains.
 
-## Next improvements I can implement
-- Replace remaining hard-coded API URLs across `client/src` with `import.meta.env.VITE_API_BASE` (automated changes).
-- Add `client/.env.example` and `backend/.env.example` files with required variables and descriptions.
-- Add CI config examples (Vercel/GitHub Actions) and a step-by-step deployment script.
+- Browser requests blocked (`net::ERR_BLOCKED_BY_CLIENT`)
+  - Check for browser extensions (adblockers) or privacy settings. Test in an incognito window without extensions.
 
-## Contact / support
-- Tell me which next improvement you want and I will implement it (I can open a PR or push changes directly).
+Developer notes & conventions
+
+- JSX in `.js` files: The frontend includes a small Vite plugin to transform JSX inside `.js` files (to avoid mass renames). You can optionally rename those files to `.jsx` or `.tsx` — both are acceptable.
+- Centralize API URL usage: the frontend reads the base API URL from `import.meta.env.VITE_API_BASE` where present. Prefer relative `/api` paths in dev to rely on the Vite proxy.
+
+Contributing
+
+- Open a feature branch, push to the origin, and create a pull request to `master`.
+- Keep secrets out of source; use environment variables for all credentials.
+- Add tests where appropriate. Lint and format before opening a PR.
+
+Next steps I can help with
+- Replace remaining hard-coded API URLs in `client/src` with `import.meta.env.VITE_API_BASE` (I already updated `SigninPage.jsx`).
+- Create `client/.env.example` and `backend/.env.example` files documenting required env variables.
+- Produce a step-by-step deployment checklist for Vercel (frontend) + Render (backend).
+
+Contact / support
+- If you want me to make any of the next-step changes, tell me which one and I will implement it.
 
 ---
-Updated README: added tables, examples, and a deployment checklist.
-
+Updated README with expanded documentation and developer guidance.
