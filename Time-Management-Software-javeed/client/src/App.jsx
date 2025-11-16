@@ -31,8 +31,13 @@ import Dashboard from "./components/Executive/Dashboard.jsx";
 import ExecutiveLayout from "./components/Executive/Layout.jsx";
 import MyTimePickerComponent from "./components/Clock.jsx";
 import ProtectedRoute from "./ProtectedRoute.jsx";
+import { useEffect } from "react";
 
 function App() {
+  useEffect(() => {
+  document.title = "Time Management Software";
+}, []);
+
   return (
     <ThemeProvider>
       <Router>
