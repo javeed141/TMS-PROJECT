@@ -35,7 +35,7 @@ import { useEffect } from "react";
 
 function App() {
   useEffect(() => {
-  document.title = "Time Management Software";
+document.title = "⏱ Time Management Software";
 }, []);
 
   return (
