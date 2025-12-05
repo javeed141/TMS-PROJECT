@@ -219,7 +219,7 @@ export default function EventModal({ open, onClose, initialValues = {}, onSave, 
 
   // optional helper: a wrapper to call your create-and-addtasks API
   async function createAndAddTasks(payload) {
-    const API = "https://time-management-software.onrender.com/api/meetings/create-and-addtasks";
+    const API = "http://localhost:5000/api/meetings/create-and-addtasks";
     const token = typeof window !== "undefined" ? localStorage.getItem("token") : null;
     try {
       const res = await fetch(API, {
@@ -269,7 +269,7 @@ export default function EventModal({ open, onClose, initialValues = {}, onSave, 
 
   // call backend to check availability of one email for selected timeslot
   async function checkAvailability(email) {
-    const API = "https://time-management-software.onrender.com/api/executive/check-availability";
+    const API = "http://localhost:5000/api/executive/check-availability";
     const payload = {
       email,
       startTime: buildISO(form.date, form.start),
@@ -301,7 +301,7 @@ export default function EventModal({ open, onClose, initialValues = {}, onSave, 
   }
 
   const logConflictTicket = async (guest) => {
-    const API = "https://time-management-software.onrender.com/api/meetings/conflicts/manual";
+    const API = "http://localhost:5000/api/meetings/conflicts/manual";
     const participantEmails = Array.from(
       new Set([
         ...addedGuests.map((g) => g.email),

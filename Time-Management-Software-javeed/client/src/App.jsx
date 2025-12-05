@@ -34,9 +34,7 @@ import ProtectedRoute from "./ProtectedRoute.jsx";
 import { useEffect } from "react";
 
 function App() {
-  useEffect(() => {
-document.title = "⏱ Time Management Software";
-}, []);
+
 
   return (
     <ThemeProvider>
@@ -50,8 +48,6 @@ document.title = "⏱ Time Management Software";
           <Route path="/clock" element={<MyTimePickerComponent />} />
 
           {/* 👤 User Routes */}
-          <Route path="/user" element={<UsersList />} />
-          <Route path="/userList" element={<MainComponent />} />
 
           {/* 🧑 Executive Routes (nested under layout) */}
           <Route element={<ProtectedRoute requiredRole="executive" />}>

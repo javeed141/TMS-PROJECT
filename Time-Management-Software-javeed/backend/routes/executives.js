@@ -9,7 +9,7 @@ console.log('Executive imported:', typeof Executive === 'function' ? 'Model OK' 
 const auth = require('../middleware/authMiddleware');
 
 // Apply protection to all routes below
-router.use(auth);
+// router.use(auth);
 
 // POST /api/executive/register
 router.post('/register', async (req, res) => {
@@ -17,8 +17,19 @@ router.post('/register', async (req, res) => {
   if (!name || !email || !password) return res.status(400).json({ msg: 'Missing fields' });
 
   try {
-    const existing = await Executive.findOne({ email });
-    if (existing) return res.status(400).json({ msg: 'Executive already exists' });
+const existing = await Executive.findOne({ email });
+
+if (existing) {
+  // If exists → return JWT (login instead of error)
+  const payload = { id: existing._id, role: existing.role, email: existing.email };
+  const token = jwt.sign(payload, process.env.JWT_SECRET || 'dev_secret', { expiresIn: '5h' });
+
+  return res.status(200).json({
+    msg: "Login successful",
+    token,
+    executive: { id: existing._id, name: existing.name, email: existing.email }
+  });
+}
 
     const salt = await bcrypt.genSalt(10);
     const hash = await bcrypt.hash(password, salt);

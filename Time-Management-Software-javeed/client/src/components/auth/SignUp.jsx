@@ -52,12 +52,7 @@ export default function SignUpForm() {
 
   const Spinner = () => <LoaderIcon className="w-6 h-6 animate-spin text-white" />;
 
-  useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((user) => {
-      if (user) navigate("/user", { replace: true });
-    });
-    return () => unsubscribe();
-  }, [navigate]);
+
 
 
 
@@ -68,7 +63,7 @@ export default function SignUpForm() {
 
   try {
     // 📨 1. Send registration data to your backend API
-    const response = await fetch("https://time-management-software.onrender.com/api/executive/register", {
+    const response = await fetch("http://localhost:5000/api/executive/register", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -108,16 +103,49 @@ export default function SignUpForm() {
   setSubmit(false);
 };
 
-  const handleGoogleSignIn = async () => {
-    const provider = new GoogleAuthProvider();
-    try {
-      const result = await signInWithPopup(auth, provider);
-      toast.success(`Welcome ${result.user.displayName}`, { position: "top-center" });
-      // navigate("/");
-    } catch (error) {
-      toast.error(error.message, { position: "bottom-center" });
+const handleGoogleSignIn = async () => {
+  const provider = new GoogleAuthProvider();
+
+  try {
+    const result = await signInWithPopup(auth, provider);
+
+    const name = result.user.displayName;
+    const email = result.user.email;
+
+    // 1️⃣ Create an auto password (hashing happens in backend)
+    const autoPassword = result.user.uid + "_google";
+
+    // 2️⃣ Call your existing register API
+    const response = await fetch("http://localhost:5000/api/executive/register", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        name,
+        email,
+        password: autoPassword,
+        department: "N/A",
+      }),
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      toast.error(data.msg || "Google signup failed");
+      return;
     }
-  };
+
+    // 3️⃣ Save token
+    localStorage.setItem("token", data.token);
+
+    toast.success(`Welcome ${name}!`);
+    navigate("/executive");
+
+  } catch (error) {
+    toast.error(error.message);
+  }
+};
+
+
 
   return (
     <div className={`flex min-h-screen items-center justify-center p-6 ${isDark ? "bg-gray-900" : "bg-gray-50"}`}>
@@ -223,7 +251,15 @@ export default function SignUpForm() {
               <img src={googleLogo} alt="Google" className="w-5 h-5" />
               Sign up with Google
             </Button>
-          </div>
+ <p className={` text-center text-sm mt-4`}>
+              Don’t have an account?{" "}
+              <span
+                className="text-indigo-400 hover:text-indigo-300 font-medium cursor-pointer transition-colors"
+                onClick={() => navigate("/signin")}
+              >
+                Sign in
+              </span>
+            </p>          </div>
         </Card>
       </div>
     </div>

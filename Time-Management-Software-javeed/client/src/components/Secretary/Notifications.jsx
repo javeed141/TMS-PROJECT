@@ -5,7 +5,7 @@ import { Card, CardHeader, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 
-const API_BASE = "https://time-management-software.onrender.com";
+const API_BASE = "http://localhost:5000";
 const FILTERS = [
   { value: "all", label: "All" },
   { value: "unread", label: "Unread" },

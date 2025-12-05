@@ -61,7 +61,7 @@
 //   setBackendError("");
 
 //   try {
-//     const response = await fetch("https://time-management-software.onrender.com/api/auth/login", {
+//     const response = await fetch("http://localhost:5000/api/auth/login", {
 //       method: "POST",
 //       headers: { "Content-Type": "application/json" },
 //       body: JSON.stringify(data),
@@ -100,7 +100,7 @@
 //     const email = result.user.email;
 
 //     // Check user in MongoDB
-//     const response = await fetch("https://time-management-software.onrender.com/api/auth/google-login", {
+//     const response = await fetch("http://localhost:5000/api/auth/google-login", {
 //       method: "POST",
 //       headers: { "Content-Type": "application/json" },
 //       body: JSON.stringify({ email }),
@@ -343,7 +343,7 @@ export default function SignIn() {
     setBackendError("");
 
     try {
-      const response = await fetch("https://time-management-software.onrender.com/api/auth/login", {
+      const response = await fetch("http://localhost:5000/api/auth/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
@@ -379,7 +379,7 @@ export default function SignIn() {
       const result = await signInWithPopup(auth, provider);
       const email = result.user.email;
 
-      const response = await fetch("https://time-management-software.onrender.com/api/auth/google-login", {
+      const response = await fetch("http://localhost:5000/api/auth/google-login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email }),
@@ -531,7 +531,7 @@ export default function SignIn() {
               <span>Sign in with Google</span>
             </Button>
 
-            {/* <p className={`${descriptionColor} text-center text-sm mt-4`}>
+            <p className={`${descriptionColor} text-center text-sm mt-4`}>
               Don’t have an account?{" "}
               <span
                 className="text-indigo-400 hover:text-indigo-300 font-medium cursor-pointer transition-colors"
@@ -539,7 +539,7 @@ export default function SignIn() {
               >
                 Sign up
               </span>
-            </p> */}
+            </p>
           </CardFooter>
         </Card>
       </div>
