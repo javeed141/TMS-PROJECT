@@ -34,7 +34,7 @@ export default function SecretaryLayout() {
   const [loadingUser, setLoadingUser] = useState(false);
   const [userError, setUserError] = useState(null);
 
-  const API_BASE = "http://localhost:5000";
+  const API_BASE = "https://tms-project-8.onrender.com";
 
   // keep track of viewport >= md
   const [isDesktop, setIsDesktop] = useState(typeof window !== "undefined" ? window.innerWidth >= 768 : true);

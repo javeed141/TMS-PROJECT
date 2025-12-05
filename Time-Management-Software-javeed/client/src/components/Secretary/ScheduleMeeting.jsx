@@ -6,7 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Table, TableHeader, TableBody, TableCell, TableRow } from "@/components/ui/table";
 
-const API_BASE = "http://localhost:5000";
+const API_BASE = "https://tms-project-8.onrender.com";
 
 export default function ScheduleMeeting() {
   const { isDark } = useContext(ThemeContext);

@@ -27,7 +27,7 @@ import { ThemeContext } from "../../context/ThemeContext";
 /**
  * API base
  */
-const API_BASE = "http://localhost:5000";
+const API_BASE = "https://tms-project-8.onrender.com";
 
 /**
  * ExecutiveReportPage

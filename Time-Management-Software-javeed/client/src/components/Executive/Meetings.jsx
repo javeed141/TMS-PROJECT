@@ -31,7 +31,7 @@
 //   const [rsvpChosen, setRsvpChosen] = useState({});   // { [meetingId]: "accepted"|"declined" }
 //   const [acceptAllLoading, setAcceptAllLoading] = useState(false); // for Accept all declined action
 
-//   const API_BASE = "http://localhost:5000"; // change if your backend runs elsewhere
+//   const API_BASE = "https://tms-project-8.onrender.com"; // change if your backend runs elsewhere
 
 //   // derived: is any action in progress
 //   const isAnyActionLoading = loading || acceptAllLoading || Object.values(rsvpLoading).some(Boolean);
@@ -550,7 +550,7 @@
 //   const [rsvpChosen, setRsvpChosen] = useState({});   // { [meetingId]: "accepted"|"declined" }
 //   const [acceptAllLoading, setAcceptAllLoading] = useState(false); // for Accept all declined action
 
-//   const API_BASE = "http://localhost:5000"; // change if your backend runs elsewhere
+//   const API_BASE = "https://tms-project-8.onrender.com"; // change if your backend runs elsewhere
 
 //   // derived: is any action in progress
 //   const isAnyActionLoading = loading || acceptAllLoading || Object.values(rsvpLoading).some(Boolean);
@@ -1074,7 +1074,7 @@ export default function Meetings() {
   const [rsvpChosen, setRsvpChosen] = useState({});   // { [meetingId]: "accepted"|"declined" }
   const [acceptAllLoading, setAcceptAllLoading] = useState(false); // for Accept all declined action
 
-  const API_BASE = "http://localhost:5000"; // change if your backend runs elsewhere
+  const API_BASE = "https://tms-project-8.onrender.com"; // change if your backend runs elsewhere
 
   // AbortController for fetches to prevent race conditions
   const fetchControllerRef = useRef(null);

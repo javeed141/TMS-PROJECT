@@ -61,7 +61,7 @@
 //   setBackendError("");
 
 //   try {
-//     const response = await fetch("http://localhost:5000/api/auth/login", {
+//     const response = await fetch("https://tms-project-8.onrender.com/api/auth/login", {
 //       method: "POST",
 //       headers: { "Content-Type": "application/json" },
 //       body: JSON.stringify(data),
@@ -100,7 +100,7 @@
 //     const email = result.user.email;
 
 //     // Check user in MongoDB
-//     const response = await fetch("http://localhost:5000/api/auth/google-login", {
+//     const response = await fetch("https://tms-project-8.onrender.com/api/auth/google-login", {
 //       method: "POST",
 //       headers: { "Content-Type": "application/json" },
 //       body: JSON.stringify({ email }),
@@ -343,7 +343,7 @@ export default function SignIn() {
     setBackendError("");
 
     try {
-      const response = await fetch("http://localhost:5000/api/auth/login", {
+      const response = await fetch("https://tms-project-8.onrender.com/api/auth/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
@@ -379,7 +379,7 @@ export default function SignIn() {
       const result = await signInWithPopup(auth, provider);
       const email = result.user.email;
 
-      const response = await fetch("http://localhost:5000/api/auth/google-login", {
+      const response = await fetch("https://tms-project-8.onrender.com/api/auth/google-login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email }),

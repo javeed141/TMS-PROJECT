@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardHeader, CardContent, CardFooter } from '@/components/ui/card';
 import { toast } from 'react-hot-toast';
 
-const API ="http://localhost:5000";
+const API ="https://tms-project-8.onrender.com";
 
 function getAuthHeaders() {
   const token = localStorage.getItem('token');

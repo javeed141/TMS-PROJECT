@@ -31,7 +31,7 @@ import { ThemeContext } from "@/context/ThemeContext";
  */
 export default function SecretaryReportPage() {
   const { isDark } = useContext(ThemeContext || { isDark: false });
-  const API_BASE =  "http://localhost:5000";
+  const API_BASE =  "https://tms-project-8.onrender.com";
 
   const [range, setRange] = useState("this-month");
   const [loading, setLoading] = useState(false);
