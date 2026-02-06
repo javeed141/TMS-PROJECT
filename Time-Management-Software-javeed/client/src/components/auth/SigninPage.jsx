@@ -462,7 +462,6 @@ export default function SignIn() {
                     placeholder="you@example.com"
                     
                     // ✅ Default email
-                    value="javeed123@gmail.com"
 
                     className={`${inputBg} ${errors.email ? "border-red-500" : ""}`}
                     {...register("email", { required: "Email is required" })}
@@ -482,7 +481,6 @@ export default function SignIn() {
                       type={showPassword ? "text" : "password"}
 
                       // ✅ Default password
-                      value="12345678"
 
                       placeholder="Enter your password"
                       className={`${inputBg} ${errors.password ? "border-red-500" : ""} pr-10`}
